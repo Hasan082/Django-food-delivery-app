@@ -1,2 +1,2 @@
-# Django
-All Djamgo project build here
+# Django Food Delivery App
+
