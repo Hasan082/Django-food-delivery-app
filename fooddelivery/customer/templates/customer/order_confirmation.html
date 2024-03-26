@@ -1,6 +1,11 @@
 {% extends 'customer/base.html' %}
 
 {% block content %}
+<style>
+    .priceSign:before {
+        content: "$";
+    }
+    </style>
 <div class="container mb-5">
     <div class="row justify-content-center mt-1">
         <div class="col-md-5 col-sm-12 p-4 text-center">
@@ -14,10 +19,10 @@
         <div class="col-md-5 col-sm-12 text-center">
             <h3 class="pb-3">Order Summary:</h3>
             {% for item in items %}
-                <p>{{ item.name }} <span class="pl-3">{{ item.price }}</span></p>
+                <p>{{ item.name }} <span class="pl-3 priceSign">{{ item.price }}</span></p>
             {% endfor %}
 
-            <p class="font-weight-bold pt-4">Total: {{ price }}</p>
+            <p class="font-weight-bold pt-4">Total: <span class="priceSign">{{ price }}</span></p>
         </div>
     </div>
 </div>
