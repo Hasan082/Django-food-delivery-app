@@ -1,0 +1,124 @@
+{% extends 'customer/base.html' %}
+
+{% block content %}
+<style>
+/* p.priceSign:before {
+    content: "$";
+} */
+</style>
+<div class="container mb-5">
+    <div class="row justify-content-center mt-1">
+        <div class="col-md-12 col-sm-12 p-4">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="pt-5">
+                    {% for app in apptizer %}
+                    <div class="row">
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ app.image.url }}" width="150" height="100"/>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ app.pk }}">
+                                    <label class="form-check-label">{{ app.name }}</label>
+                                </div>
+                                <p class="font-weight-bold ms-5 priceSign">{{ app.price }}</p>
+                            </div>
+                            <p>{{ app.description }}</p>
+                        </div>
+                    </div>
+                    <hr />
+                {% endfor %}
+                </div>
+
+                <div class="pt-5">
+                    {% for ent in entre %}
+                    <div class="row mt-4">
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ ent.image.url }}" width="150" height="100"/>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ ent.pk }}">
+                                    <label class="form-check-label">{{ ent.name }}</label>
+                                </div>
+                                <p class="font-weight-bold ms-5 priceSign">{{ ent.price }}</p>
+                            </div>
+                            <p>{{ ent.description }}</p>
+                        </div>
+                    </div>
+                    <hr />
+                    {% endfor %}
+                </div>
+
+                <div class="pt-5">
+                    {% for dessert in desserts %}
+                    <div class="row mt-4">
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ dessert.image.url }}" width="150" height="100"/>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ dessert.pk }}">
+                                    <label class="form-check-label">{{ dessert.name }}</label>
+                                </div>
+                                <p class="font-weight-bold ms-5 priceSign">{{ dessert.price }}</p>
+                            </div>
+                            <p>{{ dessert.description }}</p>
+                        </div>
+                    </div>
+                    <hr />
+                    {% endfor %}
+                </div>
+
+                <div class="pt-5">
+                    {% for drink in drinks %}
+                    <div class="row mt-4">
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ drink.image.url }}" width="150" height="100"/>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ drink.pk }}">
+                                    <label class="form-check-label">{{ drink.name }}</label>
+                                </div>
+                                <p class="font-weight-bold ms-5 priceSign">{{ drink.price }}</p>
+                            </div>
+                            <p>{{ drink.description }}</p>
+                        </div>
+                    </div>
+                    <hr />
+                    {% endfor %}
+                </div>
+
+                <div class="pt-5">
+                    {% for sn in snacks %}
+                    <div class="row mt-4">
+                        <div class="col-md-2 col-sm-12">
+                            <img class="rounded" src="{{ sn.image.url }}" width="150" height="100"/>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" name="items[]" class="form-check-input" value="{{ sn.pk }}">
+                                    <label class="form-check-label">{{ sn.name }}</label>
+                                </div>
+                                <p class="font-weight-bold ms-5 priceSign">{{ sn.price }}</p>
+                            </div>
+                            <p>{{ sn.description }}</p>
+                        </div>
+                    </div>
+                    <hr />
+                    {% endfor %}
+                </div>
+
+                <button class="btn btn-dark mt-5">Place Order!</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
