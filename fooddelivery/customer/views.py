@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views import View
+from django.core.mail import send_mail
 from .models import MenuItem as Menu, OrderModel as orders, Category
 
 
@@ -30,10 +31,19 @@ class Order(View):
         return render(request, 'customer/order.html', context)
 
     def post(self, request, *args, **kwargs):
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        street = request.POST.get('street')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        zip_code = request.POST.get('zip')
+
         order_items = {
             'items': []
         }
+
         items = request.POST.getlist('items[]')
+
         for item in items:
             menu_item = Menu.objects.get(pk__contains=int(item))
             item_data = {
@@ -49,8 +59,28 @@ class Order(View):
                 price += item["price"]
                 item_ids.append(item["id"])
 
-            order = orders.objects.create(price=price)
+            order = orders.objects.create(
+                price=price,
+                name=name,
+                email=email,
+                street=street,
+                city=city,
+                state=state,
+                zip_code=zip_code
+            )
             order.items.add(*item_ids)
+
+            body = ('Thank you for your order from Foodie! Your food is being made and will be delivered to you soon!\n'
+                    f'Your total is ${price}\n'
+                    'Thank you again for your order!')
+            
+            subject = 'Thanks for your order'
+            message = body
+            sender_email = 'dr.has82@example.com'
+            recipient_list = [email]
+
+            # Send email function
+            send_mail(subject, message, sender_email, recipient_list, fail_silently=False)
 
             context = {
                 'items': order_items['items'],
